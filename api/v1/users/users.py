@@ -26,6 +26,14 @@ async def get_users(
     return users
 
 
+@user_router.post("/password-recovery/", dependencies=[Depends(AuthenticationRequired)])
+async def pass_recover(
+    user_controller: UserController = Depends(Factory().get_user_controller),
+    assert_access: Callable = Depends(Permissions(UserPermission.READ)),
+) -> UserResponse:
+    pass
+
+
 @user_router.post("/", status_code=201)
 async def register_user(
     register_user_request: RegisterUserRequest,
